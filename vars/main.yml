@@ -1,0 +1,3 @@
+---
+# vars file for git-lfs-ubuntu
+git_lfs_nonroot: "{{ (ansible_env.HOME == '/root') | ternary('no', 'yes') }}"

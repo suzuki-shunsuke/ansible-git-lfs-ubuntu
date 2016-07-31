@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Suzuki Shunsuke
+  description: Install git-lfs on Ubuntu
+  license: MIT
+  min_ansible_version: 1.2
+  github_branch: master
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+
+  galaxy_tags:
+  - git
+  - git-lfs
+
+dependencies:
+- role: suzuki-shunsuke.git-ubuntu
