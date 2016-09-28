@@ -3,3 +3,7 @@
   connection: local
   roles:
   - ansible-git-lfs-ubuntu
+  tasks:
+  - command: git lfs version
+    register: result
+  - debug: var=result

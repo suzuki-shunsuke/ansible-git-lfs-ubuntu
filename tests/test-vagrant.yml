@@ -1,9 +1,7 @@
 ---
 - hosts: default
   roles:
-  - {role: suzuki-shunsuke.git-ubuntu}
   - ansible-git-lfs-ubuntu
-- hosts: default
   tasks:
   - command: git lfs version
     register: result
