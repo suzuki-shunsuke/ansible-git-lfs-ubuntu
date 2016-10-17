@@ -5,4 +5,6 @@
   tasks:
   - command: git lfs version
     register: result
-  - debug: var=result
+    changed_when: false
+  - debug:
+      var: result
