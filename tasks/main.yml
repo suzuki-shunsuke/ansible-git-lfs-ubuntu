@@ -1,12 +1,20 @@
 ---
 # tasks file for git-lfs-ubuntu
 - name: download install script
-  get_url: url=https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh dest=/tmp/ mode=0777
+  get_url:
+    url: https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh
+    dest: /tmp/
+    mode: 0777
 - name: execute install script
   command: bash /tmp/script.deb.sh
   become: "{{ git_lfs_nonroot }}"
 - name: remove install script
-  file: path=/tmp/script.deb.sh state=absent
+  file:
+    path: /tmp/script.deb.sh
+    state: absent
 - name: install git-lfs
-  apt: name=git-lfs
+  apt:
+    name: git-lfs
+    update_cache: yes
+    install_recommends: no
   become: "{{ git_lfs_nonroot }}"
