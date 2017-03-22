@@ -1,6 +1,5 @@
 ---
-- hosts: localhost
-  connection: local
+- hosts: default
   roles:
   - ansible-git-lfs-ubuntu
   tasks:
