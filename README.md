@@ -1,5 +1,4 @@
-git-lfs-ubuntu
-===============
+# git-lfs-ubuntu
 
 [![Build Status](https://travis-ci.org/suzuki-shunsuke/ansible-git-lfs-ubuntu.svg?branch=master)](https://travis-ci.org/suzuki-shunsuke/ansible-git-lfs-ubuntu)
 
@@ -7,31 +6,26 @@ Install git-lfs on Ubuntu.
 
 https://galaxy.ansible.com/suzuki-shunsuke/git-lfs-ubuntu/
 
-Requirements
-------------
+## Requirements
 
 Nothing.
 
-Role Variables
---------------
+## Role Variables
+
+Please see [defaults/main.yml](defaults/main.yml) .
+
+## Dependencies
 
 Nothing.
 
-Dependencies
-------------
-
-* [suzuki-shunsuke.git-ubuntu module](https://galaxy.ansible.com/suzuki-shunsuke/git-ubuntu/)
-
-Example Playbook
-----------------
+## Example Playbook
 
 ```yaml
 - hosts: servers
   roles:
-  - suzuki-shunsuke.git-lfs-ubuntu
+    - suzuki-shunsuke.git-lfs-ubuntu
 ```
 
-License
--------
+## License
 
-MIT
+[MIT](LICENSE)

@@ -1,2 +1,5 @@
 ---
-# defaults file for git-lfs-ubuntu
+# Basically you don't have to change this variable.
+# https://packagecloud.io/github/git-lfs/install#manual-deb
+# https://packagecloud.io/docs#anchor-ubuntu
+git_lfs_distribution: "{{ ansible_facts.lsb.codename | default(ansible_distribution_release) }}"
