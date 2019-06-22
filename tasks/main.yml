@@ -1,20 +1,56 @@
 ---
-# tasks file for git-lfs-ubuntu
-- name: download install script
+# https://github.com/git-lfs/git-lfs/wiki/Installation
+# sudo apt-get install software-properties-common
+# sudo add-apt-repository ppa:git-core/ppa
+# curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+#   apt-get install curl
+#   apt-get install gnupg
+#   apt-get update
+#   apt-get install apt-transport-https
+#   curl -sSf "${apt_config_url}" > $apt_source_path
+#   curl -L "${gpg_key_url}" 2> /dev/null | apt-key add -
+#   apt-get update
+# sudo apt-get install git-lfs
+- name: Debug ansible_facts.lsb.codename
+  debug:
+    var: ansible_facts.lsb.codename
+- name: Debug ansible_distribution_version
+  debug:
+    var: ansible_distribution_version
+- name: Debug ansible_distribution_release
+  debug:
+    var: ansible_distribution_release
+- name: Debug git_lfs_distribution
+  debug:
+    var: git_lfs_distribution
+- name: Install curl and gnupg
+  apt:
+    name:
+      - curl
+      - gnupg
+- name: Install software-properties-common (Ubuntu > 12.04)
+  apt:
+    name: software-properties-common
+  when: ansible_distribution_version is version('12.04', ">")
+- name: Install python-software-properties (Ubuntu <= 12.04)
+  apt:
+    name: python-software-properties
+  when: ansible_distribution_version is version('12.04', "<=")
+- name: Add an APT repository ppa:git-core/ppa
+  apt_repository:
+    repo: ppa:git-core/ppa
+- name: Install apt-transport-https
+  apt:
+    name: apt-transport-https
+    update_cache: true
+- name: Install apt config file for git-lfs
   get_url:
-    url: https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh
-    dest: /tmp/
-    mode: 0777
-- name: execute install script
-  command: bash /tmp/script.deb.sh
-  become: "{{ git_lfs_nonroot }}"
-- name: remove install script
-  file:
-    path: /tmp/script.deb.sh
-    state: absent
-- name: install git-lfs
+    url: "https://packagecloud.io/install/repositories/github/git-lfs/config_file.list?os=Ubuntu&dist={{ git_lfs_distribution }}&source=script"
+    dest: /etc/apt/sources.list.d/github_git-lfs.list
+- name: Add an Apt signing key
+  apt_key:
+    url: https://packagecloud.io/github/git-lfs/gpgkey
+- name: Install git-lfs
   apt:
     name: git-lfs
     update_cache: yes
-    install_recommends: no
-  become: "{{ git_lfs_nonroot }}"
